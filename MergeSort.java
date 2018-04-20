@@ -9,6 +9,11 @@ Examples
 {4, 2, -3, 6, 1} 	is sorted to {-3, 1, 2, 4, 6}
 */
 
+/*
+  Time:  O( nlog(n) ) 
+  Space: O( n )
+*/
+
 public class Solution {
   // assumption: ascending order/ limited length/ no need to deal with null or length == 0
 
