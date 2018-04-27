@@ -13,7 +13,17 @@ For example,
 */
 
 class Solution {
-// assumption: no 'and'/ 40 is 'forty' and 14 is 'fourteen' / integer to be converted is not too big
+    // String Components used later
+    private String[] units = {"","Thousand ","Million ","Billion "};
+    private String[] NumInString10To20 = {"Ten ","Eleven ","Twelve ",
+			"Thirteen ","Fourteen ","Fifteen ","Sixteen ",
+			"Seventeen ","Eighteen ","Nineteen "}; 		// corner case
+    private String[] NumInStringSingleDigit = {"","One ","Two ","Three ",
+			"Four ","Five ","Six ","Seven ","Eight ","Nine "};
+    private String[] NumInStringTens = {"","","Twenty ","Thirty ",
+			"Forty ","Fifty ","Sixty ","Seventy ","Eighty ",
+			"Ninety "};
+    
     public String numberToWords(int num) {
     // first divide num into thousands, then assemble
         
@@ -21,7 +31,6 @@ class Solution {
         if ( num == 0 ) return "Zero";
         // initialize result & wordlist used in assembling
         StringBuilder result = new StringBuilder();
-        String[] units = {"","Thousand ","Million ","Billion "};
         
         // divide num into thousands
         int[] division = divide(num);
@@ -56,12 +65,8 @@ class Solution {
     private String getStringInThousand( int num ) {
     // return String representation for num < 1000 ( end in a blank space )
         
-        // initialzie result & wordList for assembling
+        // initialize result & wordList for assembling
         StringBuilder result = new StringBuilder();
-        String[] NumInString10To20 = {"Ten ","Eleven ","Twelve ","Thirteen ","Fourteen ","Fifteen ",
-                                       "Sixteen ","Seventeen ","Eighteen ","Nineteen "}; // corner case
-        String[] NumInStringSingleDigit = {"","One ","Two ","Three ","Four ","Five ","Six ","Seven ","Eight ","Nine "};
-        String[] NumInStringTens = {"","","Twenty ","Thirty ","Forty ","Fifty ","Sixty ","Seventy ","Eighty ","Ninety "};
         
         // assembling
         if (num >= 100) {
@@ -69,7 +74,8 @@ class Solution {
             num %= 100;
         }
         if (num >= 20) {
-            result.append( NumInStringTens[num / 10] ).append( NumInStringSingleDigit[num % 10] );
+            result.append( NumInStringTens[num / 10] )
+                  .append( NumInStringSingleDigit[num % 10] );
         } else if (num > 9) {
             result.append( NumInString10To20[num % 10] );
         } else {
