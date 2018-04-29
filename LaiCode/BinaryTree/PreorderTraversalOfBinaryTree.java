@@ -21,6 +21,17 @@ Pre-order traversal is [5, 3, 1, 4, 8, 11]
   Space: O( n )
 */
 
+/*
+ public class TreeNode {
+   public int key;
+   public TreeNode left;
+   public TreeNode right;
+   public TreeNode(int key) {
+     this.key = key;
+   }
+ }
+*/
+
 public class Solution {
   // assumption: for root == null, return empty list/ can use Linkedlist as output
   public List<Integer> preOrder(TreeNode root) {

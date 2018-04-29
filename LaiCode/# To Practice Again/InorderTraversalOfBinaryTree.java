@@ -21,6 +21,17 @@ In-order traversal is [1, 3, 4, 5, 8, 11]
   Space: O( n )
 */
 
+/*
+ public class TreeNode {
+   public int key;
+   public TreeNode left;
+   public TreeNode right;
+   public TreeNode(int key) {
+     this.key = key;
+   }
+ }
+*/
+
 public class Solution {
   //assumption: can use LinkedList as output/ for root == null, return empty list
   public List<Integer> inOrder(TreeNode root) {
