@@ -47,7 +47,7 @@ public class Solution {
     
     while (Stack.size() != 0) {
       TreeNode Curr = Stack.peekLast();
-      
+    /*
       if (LastNode == Curr.left || Curr.left == null) {
         // left subtree done!
         if (Curr.right != null && LastNode != Curr.right) {
@@ -65,6 +65,35 @@ public class Solution {
         // both subtree done! or no subtree! process current node
         result.add( Curr.key );
         Stack.pollLast();
+      }
+    */
+      if (LastNode == Curr.left && LastNode != null) {
+        // left just done!
+        if (Curr.right != null) {
+          // add right
+          Stack.offerLast( Curr.right );
+        } else {
+          // right is null, node is done!
+          result.add( Curr.key );
+          Stack.pollLast();
+        }
+      } else if (LastNode == Curr.right && LastNode != null) {
+        // right just done!
+        result.add( Curr.key );
+        Stack.pollLast();
+      } else {
+        // both not done!
+        if (Curr.left != null) {
+					// add left
+          Stack.offerLast( Curr.left );
+        } else if ( Curr.right != null) {
+          // left is null, then add right
+          Stack.offerLast( Curr.right );
+        } else {
+          // both are null, node done!
+          result.add( Curr.key );
+          Stack.pollLast();
+        }
       }
       LastNode = Curr;
     }
