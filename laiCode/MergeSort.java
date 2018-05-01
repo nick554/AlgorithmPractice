@@ -61,11 +61,13 @@ public class Solution {
     }
 
     // deal with the remaining element in left array; the ones in right array will remain their position => no need to do anything
-    while ( left < mid ) {
-      helper[index++] = array[left++];
+    if (left != mid) {
+        for (int i = end - 1; i >= index; i--) {
+            array[i] = array[i - end + mid];
+        }
     }
     // put back from helper to origin one
-    for ( int i = start; i < right; i++ ) {
+    for ( int i = start; i < index; i++ ) {
       array[i] = helper[i];
     }
     return;
