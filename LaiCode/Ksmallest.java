@@ -33,3 +33,55 @@ public class Solution {
   }
 }
 
+// solution 2 using quickselect
+public class Solution {
+  public int[] kSmallest(int[] array, int k) {
+    // assumption: array not null/ 0 <= k < length
+    // corner case
+    if (array.length == 1) {
+      return k == 1? array : new int[0];
+    }
+    
+    quickSelect( array, k, 0, array.length);
+    
+    int[] result = new int[k];
+    for (int i = 0; i < k; i++) {
+      result[i] = array[i];
+    }
+    return result;
+  }
+  private void quickSelect(int[] array, int k, int start, int end) {
+    // base case
+    if (end <= start + 1) {
+      return;
+    }
+    
+    // choose a pivot
+    int tmp = (int)(Math.random() * (end - start)) + start;
+    swap(array, tmp, start);
+    int pivot = array[ start ];
+    int left = start + 1;
+    
+    // partition
+    for (int i = left; i < end; i++) {
+      int temp = array[i];
+      if (temp < pivot) {
+        swap(array, left++, i);
+      }
+    }
+    swap(array, left - 1, start);
+    
+    // recursion
+    if (left < k) {
+      quickSelect(array, k, left, end);
+    }
+    quickSelect(array, k, start, left - 1);
+  }
+  private void swap(int[] a, int i, int j) {
+    if (i != j) {
+      a[i] ^= a[j];
+      a[j] ^= a[i];
+      a[i] ^= a[j];
+    }
+  }
+}
