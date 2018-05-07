@@ -13,7 +13,7 @@ public class Solution {
     
     PriorityQueue< Integer > MaxHeap = new PriorityQueue< Integer >(k+1,
             new Comparator<Integer>() {
-      				  public int compare(Integer a, Integer b) {
+      		public int compare(Integer a, Integer b) {
                   return -a.compareTo(b);
                 }
             });
@@ -21,8 +21,10 @@ public class Solution {
       MaxHeap.add( array[i] );
     }
     for (int i = k; i < array.length; i++) {
-      MaxHeap.add( array[i] );
-      MaxHeap.remove();
+      if (MaxHeap.top() > array[i]) {
+        MaxHeap.remove();
+        MaxHeap.add( array[i] );
+      }
     }
     
     for (int i = k-1; i >= 0; i--) {
