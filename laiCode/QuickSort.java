@@ -30,7 +30,7 @@ public class Solution {
     if ( end <= start+1 ) return;
     
     // choose a pivot: randomly choose
-    int pivot_index = (int)(Math.random() * (end - start)) + start;
+    int pivot_index = (int)(Math.random() * (end - start - 1)) + start;
     // put pivot at head
     swap( array, start, pivot_index );
     int pivot = array[start];
