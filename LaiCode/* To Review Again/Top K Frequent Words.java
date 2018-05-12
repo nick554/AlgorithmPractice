@@ -29,9 +29,20 @@ public class Solution {
         Freq.put(word, 1);
       }
     }
+
+    // corner case if Freq.size() < k
+    if (Freq.size() < k) {
+      k = Freq.size();
+    }
     
     // add to a heap (heapify)
-    PQ< Map.Entry<String, Integer> > MaxHeap = heapify( Freq.entrySet() );
+    PQ< Map.Entry<String, Integer> > MaxHeap = new PQ( Freq.entrySet(), 
+                new Comparator< Map.Entry<String, Integer> >() {
+                  public int compare( Map.Entry<String, Integer> o1,
+                          Map.Entry<String, Integer> o2 ) {
+                    return -o1.getValue().compareTo( o2.getValue() );
+                  }
+                });
     
     // pop to get result klogw
     String[] result = new String[k];
@@ -42,6 +53,63 @@ public class Solution {
     
     return result;
   }
+  class PQ< T > {
+    private Object[] array;
+    private int size;
+    private Comparator<T> comparator;
+    public PQ( Set<T> entryset, Comparator<T> comparator ) {
+      // initialize array
+      array = new Object[ entryset.size() ];
+      size = 0;
+      for(T element : entryset) {
+        array[size++] = element;
+      }
+      this.comparator = comparator;
+      heapify();
+    }
+
+    private void heapify() {
+      // heapify the array
+      for (int i = (size >>> 1) - 1; i >= 0; i--) {
+        percolateDown(i, (T)array[ i ]);
+      }
+    }
+
+    private void percolateDown(int i, T e) {
+      int half = size >>> 1;
+
+      while ( i < half ) {
+        int child = (i << 1) + 1;
+        T temp = (T)array[child];
+        if (child + 1 < size && 
+              0 < comparator.compare( temp, (T) array[child + 1]) ) {
+          child++;
+          temp = (T) array[child];
+        }
+        if (comparator.compare(e, temp) > 0) {
+          array[child] = e;
+          array[i] = temp;
+          i = child;
+        } else {
+          break;
+        }
+      }
+    }
+    public T poll() {
+      if (size == 0) return null;
+      T top = (T)array[0];
+      size--;
+      array[0] = array[size];
+      array[size] = null;
+      if (size != 0) {
+        percolateDown(0,(T)array[0]);
+      }
+        return top;
+      }
+    }
+  }
+}
+/*
   class MyEntry<K,V> implements Map.Entry<K,V>, Comparable< MyEntry<K,V> >{
     private K key;
     private V value;
@@ -69,4 +137,5 @@ public class Solution {
       return ( (Comparable<V>)( this.getValue() ) ).compareTo( o.getValue() );
     }
   }
-}
+
+*/
