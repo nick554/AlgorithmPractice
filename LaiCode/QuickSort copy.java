@@ -42,4 +42,31 @@ public class Solution {
     
     return result;
   }
+  class MyEntry<K,V> implements Map.Entry<K,V>, Comparable< MyEntry<K,V> >{
+    private K key;
+    private V value;
+
+    public MyEntry(Map.Entry<K,V> e){
+      key = e.getKey();
+      value = e.getValue();
+    }
+			
+    @Override
+    public K getKey() {
+      return key;
+    }
+    public V getValue() {
+      return value;
+    }
+    public int hashCode() {
+      return key.hashCode();
+    }
+    public V setValue(V v) {
+      return value = v;
+    }
+    @SuppressWarnings("unchecked")
+    public int compareTo(MyEntry<K, V> o) {
+      return ( (Comparable<V>)( this.getValue() ) ).compareTo( o.getValue() );
+    }
+  }
 }
