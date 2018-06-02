@@ -10,8 +10,8 @@ L = 1 -> 2 -> 3 -> null, after reverse is 2 -> 1 -> 3 -> null
 */
 
 /*
-  Time:  O( nlog(n) ) 
-  Space: O( log(n) )
+  Time:  O( n ) 
+  Space: O( 1 )
 */
 
 public class Solution {
